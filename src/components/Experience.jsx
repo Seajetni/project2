@@ -9,37 +9,15 @@ import {
 import { useThree } from "@react-three/fiber";
 import { useAtom } from "jotai";
 import { useControls } from "leva";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { slideAtom } from "./Overlay";
 import { Scene } from "./Scene";
 
-export const scenes = [
-  {
-    path: "models/cybertruck_scene.glb",
-    mainColor: "#f9c0ff",
-    name: "Cybertruck",
-    description:
-      "Better utility than a truck with more performance than a sports car",
-    price: 72000,
-    range: 660,
-  },
-  {
-    path: "models/model3_scene.glb",
-    mainColor: "#c0ffe1",
-    name: "Model 3",
-    description: "The car of the future",
-    price: 29740,
-    range: 576,
-  },
-  {
-    path: "models/semi_scene.glb",
-    mainColor: "#ffdec0",
-    name: "Semi",
-    description: "The Future of Trucking",
-    price: 150000,
-    range: 800,
-  },
-];
+
+  
+
+
+
 
 const CameraHandler = ({ slideDistance }) => {
   const viewport = useThree((state) => state.viewport);
@@ -126,6 +104,29 @@ const CameraHandler = ({ slideDistance }) => {
 };
 
 export const Experience = () => {
+  
+  
+    
+  const [pH, setPH] = useState(0);
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch('https://api-kup.vercel.app/api/product/6551a3d4bd6eeffe50f8d24f');
+        const data = await res.json();
+        const newPH = parseFloat(data.data.value).toFixed(2);
+        setPH(newPH);
+      } catch (error) {
+        console.error('Error fetching pH data:', error);
+      }
+    };
+
+    const intervalId = setInterval(fetchData, 1000);
+
+    return () => clearInterval(intervalId); // Cleanup interval on component unmount
+  }, []); // Empty dependency array to run the effect only once on mount
+ 
+
   const viewport = useThree((state) => state.viewport);
   const { slideDistance } = useControls({
     slideDistance: {
@@ -134,6 +135,34 @@ export const Experience = () => {
       max: 10,
     },
   });
+
+
+   const scenes = [
+    {
+      path: "models/esp32.glb",
+      mainColor: "#c0ffe1",
+      name: "ESP32",
+      description: "บอร์ด ESP32",
+      price: "Status",
+      range: "Online",
+    },
+    {
+      path: "models/pump.glb",
+      mainColor: "#f9c0ff",
+      name: "Water pump",
+      description: "ปั้มน้ำ",
+      price: "Status",
+      range: "On",
+    },
+    {
+      path: "models/pH.glb",
+      mainColor: "#ffdec0",
+      name: "pH",
+      description: "ค่า pH ของน้ำ",
+      price: "Value",
+      range: "pH", 
+    },
+  ];
   return (
     <>
       <ambientLight intensity={0.2} />
@@ -144,6 +173,7 @@ export const Experience = () => {
         <mesh position-y={viewport.height / 2 + 1.5}>
           <sphereGeometry args={[1, 32, 32]} />
           <MeshDistortMaterial color={scenes[0].mainColor} speed={3} />
+          
         </mesh>
 
         <mesh
@@ -187,6 +217,8 @@ export const Experience = () => {
           </meshBasicMaterial>
         </mesh>
       ))}
-    </>
+    </> 
   );
+ 
 };
+

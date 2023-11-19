@@ -1,8 +1,9 @@
 import { atom, useAtom } from "jotai";
 import { useEffect, useState } from "react";
-import { scenes } from "./Experience";
+
 
 export const slideAtom = atom(0);
+
 
 export const Overlay = () => {
   const [slide, setSlide] = useAtom(slideAtom);
@@ -21,6 +22,56 @@ export const Overlay = () => {
       setVisible(true);
     }, 2600);
   }, [slide]);
+
+  const [pH, setPH] = useState(0);
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch('https://api-kup.vercel.app/api/product/6551a3d4bd6eeffe50f8d24f');
+        const data = await res.json();
+        const newPH = parseFloat(data.data.value).toFixed(2);
+        setPH(newPH);
+      } catch (error) {
+        console.error('Error fetching pH data:', error);
+      }
+    };
+
+    const intervalId = setInterval(fetchData, 1000);
+
+    return () => clearInterval(intervalId); // Cleanup interval on component unmount
+  }, []); // Empty dependency array to run the effect only once on mount
+
+  
+   const scenes = [
+    {
+      path: "models/esp32.glb",
+      mainColor: "#c0ffe1",
+      name: "ESP32",
+      description: "บอร์ด ESP32",
+      price: "Status",
+      range: "Online",
+    },
+    {
+      path: "models/pump.glb",
+      mainColor: "#f9c0ff",
+      name: "Water pump",
+      description: "ปั้มน้ำ",
+      price: "Status",
+      range: "On",
+    },
+    {
+      path: "models/pH.glb",
+      mainColor: "#ffdec0",
+      name: "pH",
+      description: "ค่า pH ของน้ำ",
+      price: "Value",
+      range: pH, 
+    },
+  ];
+
+
+
   return (
     <>
       <div
@@ -28,16 +79,11 @@ export const Overlay = () => {
           visible ? "" : "opacity-0"
         } transition-opacity duration-1000`}
       >
-        <svg
-          className="w-40 mx-auto mt-8"
-          viewBox="0 0 342 35"
-          xmlns="http://www.w3.org/2000/svg"
+        <div
+          className="w-50 mx-auto mt-8 text-3xl font-bold"
         >
-          <path
-            d="M0 .1a9.7 9.7 0 0 0 7 7h11l.5.1v27.6h6.8V7.3L26 7h11a9.8 9.8 0 0 0 7-7H0zm238.6 0h-6.8v34.8H263a9.7 9.7 0 0 0 6-6.8h-30.3V0zm-52.3 6.8c3.6-1 6.6-3.8 7.4-6.9l-38.1.1v20.6h31.1v7.2h-24.4a13.6 13.6 0 0 0-8.7 7h39.9v-21h-31.2v-7h24zm116.2 28h6.7v-14h24.6v14h6.7v-21h-38zM85.3 7h26a9.6 9.6 0 0 0 7.1-7H78.3a9.6 9.6 0 0 0 7 7zm0 13.8h26a9.6 9.6 0 0 0 7.1-7H78.3a9.6 9.6 0 0 0 7 7zm0 14.1h26a9.6 9.6 0 0 0 7.1-7H78.3a9.6 9.6 0 0 0 7 7zM308.5 7h26a9.6 9.6 0 0 0 7-7h-40a9.6 9.6 0 0 0 7 7z"
-            fill="currentColor"
-          ></path>
-        </svg>
+           <p>Hydroponic Farm</p>
+        </div>
         <div className="absolute top-0 bottom-0 left-0 right-0 flex-1 flex items-center justify-between p-4">
           <svg
             onClick={() =>
@@ -85,25 +131,15 @@ export const Overlay = () => {
           <div className="flex items-center gap-12 mt-10">
             <div className="flex flex-col items-center">
               <div className="flex gap-2 items-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-5 h-5"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z"
-                  />
-                </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M8.288 15.038a5.25 5.25 0 017.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 011.06 0z" />
+</svg>
+
                 <p className="font-semibold text-3xl">
-                  ${scenes[displaySlide].price.toLocaleString()}
+                  {scenes[displaySlide].price.toLocaleString()}
                 </p>
               </div>
-              <p className="text-sm opacity-80">After Federal Tax Credit</p>
+              <p className="text-sm opacity-80">สถานะตอนนี้</p>
             </div>
             <div className="flex flex-col items-center">
               <div className="flex items-center gap-2">
@@ -122,10 +158,10 @@ export const Overlay = () => {
                   />
                 </svg>
                 <p className="font-semibold text-3xl">
-                  {scenes[displaySlide].range}km
+                  {scenes[displaySlide].range}
                 </p>
               </div>
-              <p className="text-sm opacity-80">With one single charge</p>
+              <p className="text-sm opacity-80"></p>
             </div>
           </div>
         </div>
