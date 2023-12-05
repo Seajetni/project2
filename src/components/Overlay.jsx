@@ -61,7 +61,7 @@ export const Overlay = () => {
     {
       path: "models/pump.glb",
       mainColor: "#f9c0ff",
-      name: "Water pump",
+      name: "Water pump & Fertilizer Valve",
       description: "ปั้มน้ำ",
       price: "Status",
       range: pumpWater,
