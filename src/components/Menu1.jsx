@@ -13,6 +13,30 @@ const Menu1 = () => {
   };
 
 
+  function handleOpenRelay1() {
+  
+    fetch(`https://sgp1.blynk.cloud/external/api/update?token=pwo5wVawia3Th0zu61Uw56n69RxUjUt9&v3=1`)
+      .then(response => {
+        setChackRelay1("ON")
+      })
+      .catch(error => {
+        
+        console.error('Error sending request:', error);
+      });
+  }
+  
+  function handleOFFRelay1() {
+    
+    fetch('https://sgp1.blynk.cloud/external/api/update?token=pwo5wVawia3Th0zu61Uw56n69RxUjUt9&v3=0')
+      .then(response => {
+        setChackRelay1("OFF")
+      })
+      .catch(error => {
+        
+        console.error('Error sending request:', error);
+      });
+  }
+  
   function handleOpenRelay2() {
   
     fetch(`https://sgp1.blynk.cloud/external/api/update?token=pwo5wVawia3Th0zu61Uw56n69RxUjUt9&v4=1`)
@@ -36,7 +60,54 @@ const Menu1 = () => {
         console.error('Error sending request:', error);
       });
   }
+
+  function handleOpenRelay3() {
   
+    fetch(`https://sgp1.blynk.cloud/external/api/update?token=pwo5wVawia3Th0zu61Uw56n69RxUjUt9&v5=1`)
+      .then(response => {
+        setChackRelay3("ON")
+      })
+      .catch(error => {
+        
+        console.error('Error sending request:', error);
+      });
+  }
+  
+  function handleOFFRelay3() {
+    
+    fetch('https://sgp1.blynk.cloud/external/api/update?token=pwo5wVawia3Th0zu61Uw56n69RxUjUt9&v5=0')
+      .then(response => {
+        setChackRelay3("OFF")
+      })
+      .catch(error => {
+        
+        console.error('Error sending request:', error);
+      });
+  }
+
+  function handleOpenRelay4() {
+  
+    fetch(`https://sgp1.blynk.cloud/external/api/update?token=pwo5wVawia3Th0zu61Uw56n69RxUjUt9&v6=1`)
+      .then(response => {
+        setChackRelay4("ON")
+      })
+      .catch(error => {
+        
+        console.error('Error sending request:', error);
+      });
+  }
+  
+  function handleOFFRelay4() {
+    
+    fetch('https://sgp1.blynk.cloud/external/api/update?token=pwo5wVawia3Th0zu61Uw56n69RxUjUt9&v6=0')
+      .then(response => {
+        setChackRelay4("OFF")
+      })
+      .catch(error => {
+        
+        console.error('Error sending request:', error);
+      });
+  }
   return (
     <div className="relative pointer-events-auto">
     <button
@@ -61,8 +132,8 @@ const Menu1 = () => {
         <p className=' bg-yellow-400 rounded-2xl px-2'>{chackRelay1}</p>
         <label htmlFor="relay1" className=" mr-2">Relay1</label>
         </div>
-        <button className=" bg-blue-500 rounded-3xl px-2 text-lg">ON</button>
-        <button className=" bg-red-500 rounded-3xl px-2 text-lg">OFF</button>
+        <button className=" bg-blue-500 rounded-3xl px-2 text-lg" onClick={handleOpenRelay1}>ON</button>
+        <button className=" bg-red-500 rounded-3xl px-2 text-lg" onClick={handleOFFRelay1}>OFF</button>
       </div>
 
       <div  className="py-2 px-4  text-black flex justify-center">
@@ -81,8 +152,8 @@ const Menu1 = () => {
         <p className=' bg-yellow-400 rounded-2xl px-2'>{chackRelay3}</p>
         <label htmlFor="relay3" className=" mr-2">Relay3</label>
         </div>
-        <button className=" bg-blue-500 rounded-3xl px-2 text-lg">ON</button>
-        <button className=" bg-red-500 rounded-3xl px-2 text-lg">OFF</button>
+        <button className=" bg-blue-500 rounded-3xl px-2 text-lg" onClick={handleOpenRelay3}>ON</button>
+        <button className=" bg-red-500 rounded-3xl px-2 text-lg" onClick={handleOFFRelay3}>OFF</button>
       </div>
 
       <div  className="py-2 px-4  text-black flex justify-center">
@@ -91,8 +162,8 @@ const Menu1 = () => {
         <p className=' bg-yellow-400 rounded-2xl px-2'>{chackRelay4}</p>
         <label htmlFor="relay4" className=" mr-2">Relay4</label>
         </div>
-        <button className=" bg-blue-500 rounded-3xl px-2 text-lg">ON</button>
-        <button className=" bg-red-500 rounded-3xl px-2 text-lg">OFF</button>
+        <button className=" bg-blue-500 rounded-3xl px-2 text-lg" onClick={handleOpenRelay4}>ON</button>
+        <button className=" bg-red-500 rounded-3xl px-2 text-lg" onClick={handleOFFRelay4}>OFF</button>
       </div>
     </div>
   </div>
