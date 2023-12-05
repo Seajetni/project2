@@ -1,5 +1,6 @@
 
-import { useState } from 'react';
+import  axios  from 'axios';
+import { useEffect, useState } from 'react';
 
 const Menu1 = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,11 +14,12 @@ const Menu1 = () => {
   };
 
 
-  function handleOpenRelay1() {
+  async function handleOpenRelay1() {
   
     fetch(`https://sgp1.blynk.cloud/external/api/update?token=pwo5wVawia3Th0zu61Uw56n69RxUjUt9&v3=1`)
+    await axios.put("https://api-kup.vercel.app/api/product/656f15639a600df3ec30edf6", {"description" : "ON"})
       .then(response => {
-        setChackRelay1("ON")
+        
       })
       .catch(error => {
         
@@ -25,11 +27,12 @@ const Menu1 = () => {
       });
   }
   
-  function handleOFFRelay1() {
+  async function handleOFFRelay1() {
     
     fetch('https://sgp1.blynk.cloud/external/api/update?token=pwo5wVawia3Th0zu61Uw56n69RxUjUt9&v3=0')
+    await axios.put("https://api-kup.vercel.app/api/product/656f15639a600df3ec30edf6", {"description" : "OFF"})
       .then(response => {
-        setChackRelay1("OFF")
+        
       })
       .catch(error => {
         
@@ -37,11 +40,12 @@ const Menu1 = () => {
       });
   }
   
-  function handleOpenRelay2() {
+  async function handleOpenRelay2() {
   
     fetch(`https://sgp1.blynk.cloud/external/api/update?token=pwo5wVawia3Th0zu61Uw56n69RxUjUt9&v4=1`)
+    await axios.put("https://api-kup.vercel.app/api/product/656f18a89a600df3ec30edf7", {"description" : "ON"})
       .then(response => {
-        setChackRelay2("ON")
+        
       })
       .catch(error => {
         
@@ -49,11 +53,12 @@ const Menu1 = () => {
       });
   }
   
-  function handleOFFRelay2() {
+  async function handleOFFRelay2() {
     
     fetch('https://sgp1.blynk.cloud/external/api/update?token=pwo5wVawia3Th0zu61Uw56n69RxUjUt9&v4=0')
+    await axios.put("https://api-kup.vercel.app/api/product/656f18a89a600df3ec30edf7", {"description" : "OFF"})
       .then(response => {
-        setChackRelay2("OFF")
+        
       })
       .catch(error => {
         
@@ -61,11 +66,12 @@ const Menu1 = () => {
       });
   }
 
-  function handleOpenRelay3() {
+  async function handleOpenRelay3() {
   
     fetch(`https://sgp1.blynk.cloud/external/api/update?token=pwo5wVawia3Th0zu61Uw56n69RxUjUt9&v5=1`)
+    await axios.put("https://api-kup.vercel.app/api/product/656f18d69a600df3ec30edf8", {"description" : "ON"})
       .then(response => {
-        setChackRelay3("ON")
+        
       })
       .catch(error => {
         
@@ -73,11 +79,12 @@ const Menu1 = () => {
       });
   }
   
-  function handleOFFRelay3() {
+  async function handleOFFRelay3() {
     
     fetch('https://sgp1.blynk.cloud/external/api/update?token=pwo5wVawia3Th0zu61Uw56n69RxUjUt9&v5=0')
+    await axios.put("https://api-kup.vercel.app/api/product/656f18d69a600df3ec30edf8", {"description" : "OFF"})
       .then(response => {
-        setChackRelay3("OFF")
+        
       })
       .catch(error => {
         
@@ -85,11 +92,12 @@ const Menu1 = () => {
       });
   }
 
-  function handleOpenRelay4() {
+  async function handleOpenRelay4() {
   
-    fetch(`https://sgp1.blynk.cloud/external/api/update?token=pwo5wVawia3Th0zu61Uw56n69RxUjUt9&v6=1`)
+     fetch(`https://sgp1.blynk.cloud/external/api/update?token=pwo5wVawia3Th0zu61Uw56n69RxUjUt9&v6=1`)
+    await axios.put("https://api-kup.vercel.app/api/product/656f18ee9a600df3ec30edf9", {"description" : "ON"})
       .then(response => {
-        setChackRelay4("ON")
+        
       })
       .catch(error => {
         
@@ -97,17 +105,86 @@ const Menu1 = () => {
       });
   }
   
-  function handleOFFRelay4() {
+ async function handleOFFRelay4() {
     
     fetch('https://sgp1.blynk.cloud/external/api/update?token=pwo5wVawia3Th0zu61Uw56n69RxUjUt9&v6=0')
+    await axios.put("https://api-kup.vercel.app/api/product/656f18ee9a600df3ec30edf9", {"description" : "OFF"})
       .then(response => {
-        setChackRelay4("OFF")
+        
       })
       .catch(error => {
         
         console.error('Error sending request:', error);
       });
   }
+
+
+  useEffect(() => {
+    const relay1Status = async () => {
+      try {
+        const res = await fetch('https://api-kup.vercel.app/api/product/656f15639a600df3ec30edf6');
+        const data = await res.json();
+        const status = data.data.description
+        setChackRelay1(status)
+      } catch (error) {
+        console.error('Error fetching pH data:', error);
+      }
+    };
+    const intervalId = setInterval(relay1Status, 1000);
+  
+    return () => clearInterval(intervalId);
+  }, []);
+
+  useEffect(() => {
+    const relay2Status = async () => {
+      try {
+        const res = await fetch('https://api-kup.vercel.app/api/product/656f18a89a600df3ec30edf7');
+        const data = await res.json();
+        const status = data.data.description
+        setChackRelay2(status)
+      } catch (error) {
+        console.error('Error fetching pH data:', error);
+      }
+    };
+    const intervalId = setInterval(relay2Status, 1000);
+  
+    return () => clearInterval(intervalId);
+  }, []); 
+
+  useEffect(() => {
+    const relay3Status = async () => {
+      try {
+        const res = await fetch('https://api-kup.vercel.app/api/product/656f18d69a600df3ec30edf8');
+        const data = await res.json();
+        const status = data.data.description
+        setChackRelay3(status)
+      } catch (error) {
+        console.error('Error fetching pH data:', error);
+      }
+    };
+    const intervalId = setInterval(relay3Status, 1000);
+  
+    return () => clearInterval(intervalId);
+  }, []); 
+
+  useEffect(() => {
+    const relay4Status = async () => {
+      try {
+        const res = await fetch('https://api-kup.vercel.app/api/product/656f18ee9a600df3ec30edf9');
+        const data = await res.json();
+        const status = data.data.description
+        setChackRelay4(status)
+      } catch (error) {
+        console.error('Error fetching pH data:', error);
+      }
+    };
+    const intervalId = setInterval(relay4Status, 1000);
+  
+    return () => clearInterval(intervalId);
+  }, []); 
+
+
+  
   return (
     <div className="relative pointer-events-auto">
     <button
