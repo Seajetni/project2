@@ -11,6 +11,8 @@ export const Overlay = () => {
   const [displaySlide, setDisplaySlide] = useState(slide);
   const [visible, setVisible] = useState(false);
   const [status, setStatus] = useState("")
+  const [pumpWater, setPumpWater] = useState("ON")
+  const [pH, setPH] = useState(0);
 
   useEffect(() => {
     setTimeout(() => {
@@ -26,7 +28,7 @@ export const Overlay = () => {
     }, 2600);
   }, [slide]);
 
-  const [pH, setPH] = useState(0);
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -62,9 +64,9 @@ export const Overlay = () => {
       name: "Water pump",
       description: "ปั้มน้ำ",
       price: "Status",
-      range: "On",
-      oN: "Open",
-      Off: "OFF",
+      range: pumpWater,
+      oN: "TurnON",
+      Off: "TurnOFF",
     },
     {
       path: "models/pH.glb",
@@ -84,8 +86,11 @@ export const Overlay = () => {
       const newStatus = data
       if(newStatus === false){
         setStatus("OFF")
+        
       }else if(newStatus === true){
-        setStatus("No")
+        setStatus("ON")
+        
+        
       }
     } catch (error) {
       console.error('Error fetching pH data:', error);
@@ -102,8 +107,7 @@ function handleOpen() {
   
   fetch(`https://sgp1.blynk.cloud/external/api/update?token=pwo5wVawia3Th0zu61Uw56n69RxUjUt9&v4=1`)
     .then(response => {
-     
-      console.log('Request sent successfully');
+      setPumpWater("ON")
     })
     .catch(error => {
       
@@ -112,14 +116,13 @@ function handleOpen() {
 }
 
 function handleOff() {
-  // Send a request when the link is clicked
+  
   fetch('https://sgp1.blynk.cloud/external/api/update?token=pwo5wVawia3Th0zu61Uw56n69RxUjUt9&v4=0')
     .then(response => {
-      // Handle the response if needed
-      console.log('Request sent successfully');
+      setPumpWater("OFF")
     })
     .catch(error => {
-      // Handle errors
+      
       console.error('Error sending request:', error);
     });
 }
@@ -214,12 +217,12 @@ function handleOff() {
                 <p className="font-semibold text-3xl">
                   {scenes[displaySlide].range}
                 </p>
-                <p className="pointer-events-auto hover:opacity-60 transition-opacity cursor-pointer" onClick={handleOpen}>
+                <button className="pointer-events-auto hover:opacity-60 transition-opacity cursor-pointer rounded-2xl bg-blue-500 px-2 " onClick={handleOpen}>
                 {scenes[displaySlide].oN}
-                </p>
-                <p className="pointer-events-auto hover:opacity-60 transition-opacity cursor-pointer" onClick={handleOff}>
+                </button>
+                <button className="pointer-events-auto hover:opacity-60 transition-opacity cursor-pointer rounded-2xl bg-red-500 px-2 " onClick={handleOff}>
                 {scenes[displaySlide].Off}
-                </p>
+                </button>
               </div>
               <div>
                 </div>
