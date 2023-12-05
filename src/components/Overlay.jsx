@@ -1,6 +1,8 @@
 import { Axios } from "axios";
 import { atom, useAtom } from "jotai";
 import { useEffect, useState } from "react";
+import Menu1 from "./Menu1";
+
 
 
 export const slideAtom = atom(0);
@@ -10,7 +12,7 @@ export const Overlay = () => {
   const [slide, setSlide] = useAtom(slideAtom);
   const [displaySlide, setDisplaySlide] = useState(slide);
   const [visible, setVisible] = useState(false);
-  const [status, setStatus] = useState("")
+  const [espStatus, setEspStatus] = useState("")
   const [pumpWater, setPumpWater] = useState("ON")
   const [pH, setPH] = useState(0);
 
@@ -56,7 +58,7 @@ export const Overlay = () => {
       name: "ESP32",
       description: "บอร์ด ESP32",
       price: "Status",
-      range: status,
+      range: espStatus,
     },
     {
       path: "models/pump.glb",
@@ -79,16 +81,16 @@ export const Overlay = () => {
   ];
 
   useEffect(() => {
-  const fetchData1 = async () => {
+  const espStatus = async () => {
     try {
       const res = await fetch('https://blynk.cloud/external/api/isHardwareConnected?token=pwo5wVawia3Th0zu61Uw56n69RxUjUt9');
       const data = await res.json();
       const newStatus = data
       if(newStatus === false){
-        setStatus("OFF")
+        setEspStatus("OFF")
         
       }else if(newStatus === true){
-        setStatus("ON")
+        setEspStatus("ON")
         
         
       }
@@ -96,36 +98,14 @@ export const Overlay = () => {
       console.error('Error fetching pH data:', error);
     }
   };
-  const intervalId = setInterval(fetchData1, 1000);
+  const intervalId = setInterval(espStatus, 1000);
 
   return () => clearInterval(intervalId);
 }, []); 
 
 
 
-function handleOpen() {
-  
-  fetch(`https://sgp1.blynk.cloud/external/api/update?token=pwo5wVawia3Th0zu61Uw56n69RxUjUt9&v4=1`)
-    .then(response => {
-      setPumpWater("ON")
-    })
-    .catch(error => {
-      
-      console.error('Error sending request:', error);
-    });
-}
 
-function handleOff() {
-  
-  fetch('https://sgp1.blynk.cloud/external/api/update?token=pwo5wVawia3Th0zu61Uw56n69RxUjUt9&v4=0')
-    .then(response => {
-      setPumpWater("OFF")
-    })
-    .catch(error => {
-      
-      console.error('Error sending request:', error);
-    });
-}
 
 
   return (
@@ -136,9 +116,11 @@ function handleOff() {
         } transition-opacity duration-1000`}
       >
         <div
-          className="w-50 mx-auto mt-8 text-3xl font-bold"
+          className="w-50 mx-auto mt-8 text-3xl font-bold pointer-events-auto "
         >
            <p>Hydroponic Farm</p>
+            
+           
         </div>
         <div className="absolute top-0 bottom-0 left-0 right-0 flex-1 flex items-center justify-between p-4">
           <svg
@@ -214,15 +196,10 @@ function handleOff() {
                     d="M21 10.5h.375c.621 0 1.125.504 1.125 1.125v2.25c0 .621-.504 1.125-1.125 1.125H21M4.5 10.5H18V15H4.5v-4.5zM3.75 18h15A2.25 2.25 0 0021 15.75v-6a2.25 2.25 0 00-2.25-2.25h-15A2.25 2.25 0 001.5 9.75v6A2.25 2.25 0 003.75 18z"
                   />
                 </svg>
-                <p className="font-semibold text-3xl">
+                <p className="font-semibold text-3xl ">
                   {scenes[displaySlide].range}
                 </p>
-                <button className="pointer-events-auto hover:opacity-60 transition-opacity cursor-pointer rounded-2xl bg-blue-500 px-2 " onClick={handleOpen}>
-                {scenes[displaySlide].oN}
-                </button>
-                <button className="pointer-events-auto hover:opacity-60 transition-opacity cursor-pointer rounded-2xl bg-red-500 px-2 " onClick={handleOff}>
-                {scenes[displaySlide].Off}
-                </button>
+                <Menu1/>
               </div>
               <div>
                 </div>
