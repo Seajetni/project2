@@ -1,3 +1,4 @@
+import { Axios } from "axios";
 import { atom, useAtom } from "jotai";
 import { useEffect, useState } from "react";
 
@@ -9,6 +10,8 @@ export const Overlay = () => {
   const [slide, setSlide] = useAtom(slideAtom);
   const [displaySlide, setDisplaySlide] = useState(slide);
   const [visible, setVisible] = useState(false);
+  const [status, setStatus] = useState("")
+
   useEffect(() => {
     setTimeout(() => {
       setVisible(true);
@@ -24,14 +27,15 @@ export const Overlay = () => {
   }, [slide]);
 
   const [pH, setPH] = useState(0);
-  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch('https://api-kup.vercel.app/api/product/6551a3d4bd6eeffe50f8d24f');
+        const res = await fetch('https://blynk.cloud/external/api/get?token=pwo5wVawia3Th0zu61Uw56n69RxUjUt9&v1');
         const data = await res.json();
-        const newPH = parseFloat(data.data.value).toFixed(2);
+        const newPH = parseFloat(data).toFixed(2);
         setPH(newPH);
+        
       } catch (error) {
         console.error('Error fetching pH data:', error);
       }
@@ -39,8 +43,8 @@ export const Overlay = () => {
 
     const intervalId = setInterval(fetchData, 1000);
 
-    return () => clearInterval(intervalId); // Cleanup interval on component unmount
-  }, []); // Empty dependency array to run the effect only once on mount
+    return () => clearInterval(intervalId); 
+  }, []); 
 
   
    const scenes = [
@@ -50,7 +54,7 @@ export const Overlay = () => {
       name: "ESP32",
       description: "บอร์ด ESP32",
       price: "Status",
-      range: "Online",
+      range: status,
     },
     {
       path: "models/pump.glb",
@@ -59,6 +63,8 @@ export const Overlay = () => {
       description: "ปั้มน้ำ",
       price: "Status",
       range: "On",
+      oN: "Open",
+      Off: "OFF",
     },
     {
       path: "models/pH.glb",
@@ -70,6 +76,53 @@ export const Overlay = () => {
     },
   ];
 
+  useEffect(() => {
+  const fetchData1 = async () => {
+    try {
+      const res = await fetch('https://blynk.cloud/external/api/isHardwareConnected?token=pwo5wVawia3Th0zu61Uw56n69RxUjUt9');
+      const data = await res.json();
+      const newStatus = data
+      if(newStatus === false){
+        setStatus("OFF")
+      }else if(newStatus === true){
+        setStatus("No")
+      }
+    } catch (error) {
+      console.error('Error fetching pH data:', error);
+    }
+  };
+  const intervalId = setInterval(fetchData1, 1000);
+
+  return () => clearInterval(intervalId);
+}, []); 
+
+
+
+function handleOpen() {
+  
+  fetch(`https://sgp1.blynk.cloud/external/api/update?token=pwo5wVawia3Th0zu61Uw56n69RxUjUt9&v4=1`)
+    .then(response => {
+     
+      console.log('Request sent successfully');
+    })
+    .catch(error => {
+      
+      console.error('Error sending request:', error);
+    });
+}
+
+function handleOff() {
+  // Send a request when the link is clicked
+  fetch('https://sgp1.blynk.cloud/external/api/update?token=pwo5wVawia3Th0zu61Uw56n69RxUjUt9&v4=0')
+    .then(response => {
+      // Handle the response if needed
+      console.log('Request sent successfully');
+    })
+    .catch(error => {
+      // Handle errors
+      console.error('Error sending request:', error);
+    });
+}
 
 
   return (
@@ -149,7 +202,8 @@ export const Overlay = () => {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="w-6 h-6"
+                  className="w-10 h-10"
+
                 >
                   <path
                     strokeLinecap="round"
@@ -160,7 +214,15 @@ export const Overlay = () => {
                 <p className="font-semibold text-3xl">
                   {scenes[displaySlide].range}
                 </p>
+                <p className="pointer-events-auto hover:opacity-60 transition-opacity cursor-pointer" onClick={handleOpen}>
+                {scenes[displaySlide].oN}
+                </p>
+                <p className="pointer-events-auto hover:opacity-60 transition-opacity cursor-pointer" onClick={handleOff}>
+                {scenes[displaySlide].Off}
+                </p>
               </div>
+              <div>
+                </div>
               <p className="text-sm opacity-80"></p>
             </div>
           </div>
