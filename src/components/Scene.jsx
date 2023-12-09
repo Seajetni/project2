@@ -30,14 +30,7 @@ export const Scene = ({ mainColor, path, ...props }) => {
       
       <group {...props} dispose={null}>
         <PerspectiveCamera makeDefault position={[3, 3, 8]} near={0.5} />
-        <OrbitControls
-          autoRotate
-          enablePan={false}
-          maxPolarAngle={DEG2RAD * 75}
-          minDistance={6}
-          maxDistance={10}
-          autoRotateSpeed={0.5}
-        />
+
         <primitive object={scene} scale={ratioScale} />
        
     
