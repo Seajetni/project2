@@ -168,7 +168,7 @@ export const Experience = () => {
     <>
       
       
-      <CameraHandler slideDistance={slideDistance} />
+      
       {/* MAIN WORLD */}
 
 
@@ -178,12 +178,7 @@ export const Experience = () => {
           key={index}
           position={[index * (viewport.width + slideDistance), 0, 0]}
         >
-          <planeGeometry args={[viewport.width, viewport.height]} />
-          
-            <RenderTexture attach="map">
-              <Scene {...scene} />
-            </RenderTexture>
-          
+
         </mesh>
       ))}
     </> 
