@@ -69,16 +69,6 @@ export const Overlay = () => {
       price: "Value",
       range: pH, 
     },
-    {
-      path: "models/pump.glb",
-      mainColor: "#f9c0ff",
-      name: "Water pump & Fertilizer Valve",
-      description: "ปั้มน้ำ",
-      price: "Status",
-      range: pumpWater,
-      oN: "TurnON",
-      Off: "TurnOFF",
-    },
   ];
 
   useEffect(() => {
