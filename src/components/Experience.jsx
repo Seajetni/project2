@@ -106,27 +106,6 @@ const CameraHandler = ({ slideDistance }) => {
 export const Experience = () => {
   
   
-    
-  const [pH, setPH] = useState(0);
-  
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch('https://api-kup.vercel.app/api/product/6551a3d4bd6eeffe50f8d24f');
-        const data = await res.json();
-        const newPH = parseFloat(data.data.value).toFixed(2);
-        setPH(newPH);
-      } catch (error) {
-        console.error('Error fetching pH data:', error);
-      }
-    };
-
-    const intervalId = setInterval(fetchData, 1000);
-
-    return () => clearInterval(intervalId); // Cleanup interval on component unmount
-  }, []); // Empty dependency array to run the effect only once on mount
- 
-
   const viewport = useThree((state) => state.viewport);
   const { slideDistance } = useControls({
     slideDistance: {
@@ -168,7 +147,7 @@ export const Experience = () => {
     <>
       
       
-      
+      <CameraHandler slideDistance={slideDistance} />
       {/* MAIN WORLD */}
 
 
@@ -178,7 +157,12 @@ export const Experience = () => {
           key={index}
           position={[index * (viewport.width + slideDistance), 0, 0]}
         >
-
+          <planeGeometry args={[viewport.width, viewport.height]} />
+          <meshBasicMaterial toneMapped={false}>
+            <RenderTexture attach="map">
+              <Scene {...scene} />
+            </RenderTexture>
+          </meshBasicMaterial>
         </mesh>
       ))}
     </> 
