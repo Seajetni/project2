@@ -60,6 +60,15 @@ export const Overlay = () => {
       price: "Status",
       range: espStatus,
     },
+
+    {
+      path: "models/pH.glb",
+      mainColor: "#ffdec0",
+      name: "pH",
+      description: "ค่า pH ของน้ำ",
+      price: "Value",
+      range: pH, 
+    },
     {
       path: "models/pump.glb",
       mainColor: "#f9c0ff",
@@ -69,14 +78,6 @@ export const Overlay = () => {
       range: pumpWater,
       oN: "TurnON",
       Off: "TurnOFF",
-    },
-    {
-      path: "models/pH.glb",
-      mainColor: "#ffdec0",
-      name: "pH",
-      description: "ค่า pH ของน้ำ",
-      price: "Value",
-      range: pH, 
     },
   ];
 

@@ -147,14 +147,6 @@ export const Experience = () => {
       range: "Online",
     },
     {
-      path: "models/pump.glb",
-      mainColor: "#00ffff",
-      name: "Water pump",
-      description: "ปั้มน้ำ",
-      price: "Status",
-      range: "On",
-    },
-    {
       path: "models/pH.glb",
       mainColor: " #87CEEB",
       name: "pH",
@@ -162,6 +154,15 @@ export const Experience = () => {
       price: "Value",
       range: "pH", 
     },
+    {
+      path: "models/pump.glb",
+      mainColor: "#00ffff",
+      name: "Water pump",
+      description: "ปั้มน้ำ",
+      price: "Status",
+      range: "On",
+    },
+
   ];
   return (
     <>
@@ -178,11 +179,11 @@ export const Experience = () => {
           position={[index * (viewport.width + slideDistance), 0, 0]}
         >
           <planeGeometry args={[viewport.width, viewport.height]} />
-          <meshBasicMaterial toneMapped={false}>
+          
             <RenderTexture attach="map">
               <Scene {...scene} />
             </RenderTexture>
-          </meshBasicMaterial>
+          
         </mesh>
       ))}
     </> 
