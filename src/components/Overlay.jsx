@@ -13,9 +13,9 @@ export const Overlay = () => {
   const [displaySlide, setDisplaySlide] = useState(slide);
   const [visible, setVisible] = useState(false);
   const [espStatus, setEspStatus] = useState("")
-  const [pumpWater, setPumpWater] = useState("ON")
   const [pH, setPH] = useState(0);
 
+    
   useEffect(() => {
     setTimeout(() => {
       setVisible(true);
@@ -69,6 +69,14 @@ export const Overlay = () => {
       price: "Value",
       range: pH, 
     },
+    {
+      path: "models/pump.glb",
+      mainColor: "#f9c0ff",
+      name: "Water pump & Fertilizer Valve",
+      description: "ปั้มน้ำ",
+      price: "Status",
+      status: "Oky"
+    },
   ];
 
   useEffect(() => {
@@ -95,8 +103,23 @@ export const Overlay = () => {
 }, []); 
 
 
+const [statusRelay, setStatusRelay] = useState(false)
 
 
+
+useEffect(() => {
+  const pumpStatus = () => {
+    if(displaySlide === 2){
+      setStatusRelay(true)
+    }else{
+      setStatusRelay(false)
+    }
+  }
+ 
+  const intervalId = setInterval(pumpStatus, 1000);
+
+  return () => clearInterval(intervalId);
+}, [displaySlide]); // Adding 'count' as a dependency
 
 
   return (
@@ -190,7 +213,13 @@ export const Overlay = () => {
                 <p className="font-semibold text-3xl ">
                   {scenes[displaySlide].range}
                 </p>
-                <Menu1/>
+                <div>
+                    {statusRelay ? (
+                      <Menu1/>
+                   ) : (
+                      <div></div>
+                  )}
+                </div>
               </div>
               <div>
                 </div>

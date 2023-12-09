@@ -133,6 +133,15 @@ export const Experience = () => {
       price: "Value",
       range: "pH", 
     },
+    {
+      path: "models/pump.glb",
+      mainColor: "#00ffff",
+      name: "Water pump",
+      description: "ปั้มน้ำ",
+      price: "Status",
+      range: "On",
+    },
+
   ];
   return (
     <>
