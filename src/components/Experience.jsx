@@ -169,28 +169,7 @@ export const Experience = () => {
       <Environment preset={"city"} />
       <CameraHandler slideDistance={slideDistance} />
       {/* MAIN WORLD */}
-      <group>
-        <mesh position-y={viewport.height / 2 + 1.5}>
-          <sphereGeometry args={[1, 32, 32]} />
-          <MeshDistortMaterial color={scenes[0].mainColor} speed={3} />
-          
-        </mesh>
 
-        <mesh
-          position-x={viewport.width + slideDistance}
-          position-y={viewport.height / 2 + 1.5}
-        >
-          <boxGeometry />
-          <MeshDistortMaterial color={scenes[1].mainColor} speed={3} />
-        </mesh>
-
-        <Dodecahedron
-          position-x={2 * (viewport.width + slideDistance)}
-          position-y={viewport.height / 2 + 1.5}
-        >
-          <MeshDistortMaterial color={scenes[2].mainColor} speed={3} />
-        </Dodecahedron>
-      </group>
 
       <Grid
         position-y={-viewport.height / 2}
