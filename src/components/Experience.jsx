@@ -117,22 +117,7 @@ export const Experience = () => {
 
 
    const scenes = [
-    {
-      path: "models/esp32.glb",
-      mainColor: "#f9c0ff",
-      name: "ESP32",
-      description: "บอร์ด ESP32",
-      price: "Status",
-      range: "Online",
-    },
-    {
-      path: "models/pH.glb",
-      mainColor: " #87CEEB",
-      name: "pH",
-      description: "ค่า pH ของน้ำ",
-      price: "Value",
-      range: "pH", 
-    },
+
     {
       path: "models/pump.glb",
       mainColor: "#00ffff",
