@@ -157,6 +157,18 @@ export const Experience = () => {
           key={index}
           position={[index * (viewport.width + slideDistance), 0, 0]}
         >
+                          <Grid
+        position-y={-viewport.height / 2}
+        sectionSize={1}
+        sectionColor={"purple"}
+        sectionThickness={1}
+        cellSize={0.5}
+        cellColor={"#6f6f6f"}
+        cellThickness={0.6}
+        infiniteGrid
+        fadeDistance={50}
+        fadeStrength={5}
+      />
           <planeGeometry args={[viewport.width, viewport.height]} />
           <meshBasicMaterial toneMapped={false}>
             <RenderTexture attach="map">
