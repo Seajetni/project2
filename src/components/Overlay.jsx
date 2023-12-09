@@ -52,7 +52,23 @@ export const Overlay = () => {
 
   
    const scenes = [
+    {
+      path: "models/esp32.glb",
+      mainColor: "#c0ffe1",
+      name: "ESP32",
+      description: "บอร์ด ESP32",
+      price: "Status",
+      range: espStatus,
+    },
 
+    {
+      path: "models/pH.glb",
+      mainColor: "#ffdec0",
+      name: "pH",
+      description: "ค่า pH ของน้ำ",
+      price: "Value",
+      range: pH, 
+    },
     {
       path: "models/pump.glb",
       mainColor: "#f9c0ff",

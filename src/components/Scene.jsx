@@ -45,6 +45,7 @@ export const Scene = ({ mainColor, path, ...props }) => {
           <Sphere scale={15}>
             <meshBasicMaterial color={mainColor} side={THREE.BackSide} />
           </Sphere>
+
         </Environment>
       </group>
     </>
