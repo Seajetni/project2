@@ -165,24 +165,13 @@ export const Experience = () => {
   ];
   return (
     <>
-      <ambientLight intensity={0.2} />
-      <Environment preset={"city"} />
+      
+      
       <CameraHandler slideDistance={slideDistance} />
       {/* MAIN WORLD */}
 
 
-      <Grid
-        position-y={-viewport.height / 2}
-        sectionSize={1}
-        sectionColor={"purple"}
-        sectionThickness={1}
-        cellSize={0.5}
-        cellColor={"#6f6f6f"}
-        cellThickness={0.6}
-        infiniteGrid
-        fadeDistance={50}
-        fadeStrength={5}
-      />
+ 
       {scenes.map((scene, index) => (
         <mesh
           key={index}
