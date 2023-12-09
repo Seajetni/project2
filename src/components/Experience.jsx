@@ -125,22 +125,7 @@ export const Experience = () => {
       price: "Status",
       range: "Online",
     },
-    {
-      path: "models/pH.glb",
-      mainColor: " #87CEEB",
-      name: "pH",
-      description: "ค่า pH ของน้ำ",
-      price: "Value",
-      range: "pH", 
-    },
-    {
-      path: "models/pump.glb",
-      mainColor: "#00ffff",
-      name: "Water pump",
-      description: "ปั้มน้ำ",
-      price: "Status",
-      range: "On",
-    },
+
 
   ];
   return (

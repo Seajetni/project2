@@ -41,11 +41,11 @@ export const Scene = ({ mainColor, path, ...props }) => {
         <primitive object={scene} scale={ratioScale} />
        
     
-        
+        <Environment blur={0.8} background>
           <Sphere scale={15}>
             <meshBasicMaterial color={mainColor} side={THREE.BackSide} />
           </Sphere>
-        
+        </Environment>
       </group>
     </>
   );
