@@ -97,7 +97,7 @@ const Menu1 = () => {
      fetch(`https://sgp1.blynk.cloud/external/api/update?token=pwo5wVawia3Th0zu61Uw56n69RxUjUt9&v6=1`)
     
       .then(response => {
-        
+        alert("ยังเปิดบ่ได้จร้า")
       })
       .catch(error => {
         
@@ -110,7 +110,7 @@ const Menu1 = () => {
     fetch('https://sgp1.blynk.cloud/external/api/update?token=pwo5wVawia3Th0zu61Uw56n69RxUjUt9&v6=0')
    
       .then(response => {
-        
+        alert("ยังเปิดบ่ได้จร้า")
       })
       .catch(error => {
         
@@ -120,80 +120,38 @@ const Menu1 = () => {
 
 
   useEffect(() => {
-    const relay1Status = async () => {
+    const relayStatus = async () => {
       try {
-        const res = await axios.get("https://sgp1.blynk.cloud/external/api/get?token=pwo5wVawia3Th0zu61Uw56n69RxUjUt9&v3")
-        if(res.data === 0){
+        const res =  await axios.get("https://sgp1.blynk.cloud/external/api/get?token=pwo5wVawia3Th0zu61Uw56n69RxUjUt9&v1&v3&v4&v5&v6")
+        
+        if(res.data.v3 === 0){
           setChackRelay1("OFF")
-        }else if(res.data === 1){
+        } if(res.data.v3 === 1){
           setChackRelay1("ON")
-        }
-        
-      } catch (error) {
-        console.error('Error fetching pH data:', error);
-      }
-    };
-    const intervalId = setInterval(relay1Status, 1000);
-  
-    return () => clearInterval(intervalId);
-  }, []);
-
-  useEffect(() => {
-    const relay2Status = async () => {
-      try {
-        const res = await axios.get("https://sgp1.blynk.cloud/external/api/get?token=pwo5wVawia3Th0zu61Uw56n69RxUjUt9&v4")
-        if(res.data === 0){
+        } if(res.data.v4 === 0){
           setChackRelay2("OFF")
-        }else if(res.data === 1){
+        }if(res.data.v4 === 1){
           setChackRelay2("ON")
-        }
-        
-      } catch (error) {
-        console.error('Error fetching pH data:', error);
-      }
-    };
-    const intervalId = setInterval(relay2Status, 1000);
-  
-    return () => clearInterval(intervalId);
-  }, []); 
-
-  useEffect(() => {
-    const relay3Status = async () => {
-      try {
-        const res = await axios.get("https://sgp1.blynk.cloud/external/api/get?token=pwo5wVawia3Th0zu61Uw56n69RxUjUt9&v5")
-        if(res.data === 0){
+        } if(res.data.v5 === 0){
           setChackRelay3("OFF")
-        }else if(res.data === 1){
+        }if(res.data.v5 === 1){
           setChackRelay3("ON")
+        }if(res.data.v6 === 0){
+          setChackRelay4("OFF")
+        }if(res.data.v6 === 1){
+          setChackRelay4("OFF")
         }
         
       } catch (error) {
         console.error('Error fetching pH data:', error);
       }
     };
-    const intervalId = setInterval(relay3Status, 1000);
+    const intervalId = setInterval(relayStatus, 1000);
   
     return () => clearInterval(intervalId);
   }, []);
 
-  useEffect(() => {
-    const relay4Status = async () => {
-      try {
-        const res = await axios.get("https://sgp1.blynk.cloud/external/api/get?token=pwo5wVawia3Th0zu61Uw56n69RxUjUt9&v6")
-        if(res.data === 0){
-          setChackRelay4("OFF")
-        }else if(res.data === 1){
-          setChackRelay4("ON")
-        }
-        
-      } catch (error) {
-        console.error('Error fetching pH data:', error);
-      }
-    };
-    const intervalId = setInterval(relay4Status, 1000);
-  
-    return () => clearInterval(intervalId);
-  }, []); 
+
 
 
   

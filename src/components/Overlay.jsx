@@ -1,8 +1,8 @@
-import { Axios } from "axios";
+
 import { atom, useAtom } from "jotai";
 import { useEffect, useState } from "react";
 import Menu1 from "./Menu1";
-
+import  axios  from 'axios';
 
 
 export const slideAtom = atom(0);
@@ -33,7 +33,7 @@ export const Overlay = () => {
   
 
   useEffect(() => {
-    const fetchData = async () => {
+    const NewValue = async () => {
       try {
         const res = await fetch('https://blynk.cloud/external/api/get?token=pwo5wVawia3Th0zu61Uw56n69RxUjUt9&v1');
         const data = await res.json();
@@ -45,7 +45,7 @@ export const Overlay = () => {
       }
     };
 
-    const intervalId = setInterval(fetchData, 1000);
+    const intervalId = setInterval(NewValue, 1000);
 
     return () => clearInterval(intervalId); 
   }, []); 
@@ -122,6 +122,8 @@ useEffect(() => {
 }, [displaySlide]); // Adding 'count' as a dependency
 
 
+ 
+ 
   return (
     <>
       <div
@@ -132,7 +134,7 @@ useEffect(() => {
         <div
           className="w-50 mx-auto mt-8 text-3xl font-bold pointer-events-auto "
         >
-           <p>Hydroponic Farm</p>
+           <p>Smart Hydroponic</p>
             
            
         </div>
