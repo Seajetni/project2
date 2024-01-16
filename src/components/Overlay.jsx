@@ -70,7 +70,7 @@ export const Overlay = () => {
       name: "pH",
       description: "ค่า pH ของน้ำ",
       price: "Value",
-      range: pH, 
+      range: pH + " pH", 
     },
     {
       path: "models/pump.glb",
