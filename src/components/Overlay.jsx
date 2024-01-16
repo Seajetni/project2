@@ -2,6 +2,7 @@
 import { atom, useAtom } from "jotai";
 import { useEffect, useState } from "react";
 import Menu2 from "./Menu2";
+import Menu1 from "./Menu1";
 import  axios  from 'axios';
 
 
