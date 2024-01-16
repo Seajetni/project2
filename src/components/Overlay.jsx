@@ -1,7 +1,7 @@
 
 import { atom, useAtom } from "jotai";
 import { useEffect, useState } from "react";
-import Menu1 from "./Menu1";
+import Menu2 from "./Menu2";
 import  axios  from 'axios';
 
 
@@ -122,7 +122,23 @@ useEffect(() => {
 }, [displaySlide]); // Adding 'count' as a dependency
 
 
+const [statusPH, setStatusPH] = useState(false)
+
+
+
+useEffect(() => {
+  const pHStatus = () => {
+    if(displaySlide === 1){
+      setStatusPH(true)
+    }else{
+      setStatusPH(false)
+    }
+  }
  
+  const intervalId = setInterval(pHStatus, 1000);
+
+  return () => clearInterval(intervalId);
+}, [displaySlide]); // Adding 'count' as a dependency
  
   return (
     <>
@@ -218,6 +234,13 @@ useEffect(() => {
                 <div>
                     {statusRelay ? (
                       <Menu1/>
+                   ) : (
+                      <div></div>
+                  )}
+                </div>
+                <div>
+                    {statusPH ? (
+                      <Menu2/>
                    ) : (
                       <div></div>
                   )}
