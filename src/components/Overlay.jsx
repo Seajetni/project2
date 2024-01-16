@@ -1,9 +1,11 @@
 
 import { atom, useAtom } from "jotai";
 import { useEffect, useState } from "react";
-import Menu2 from "./Menu2";
-import Menu1 from "./Menu1";
+
 import  axios  from 'axios';
+import MenuPump from "./MenuPump";
+import MenuPH from "./MenuPH";
+import MenuESP32 from "./MenuESP32";
 
 
 export const slideAtom = atom(0);
@@ -140,6 +142,24 @@ useEffect(() => {
 
   return () => clearInterval(intervalId);
 }, [displaySlide]); // Adding 'count' as a dependency
+
+const [statusESP, setStatusESP] = useState(false)
+
+
+
+useEffect(() => {
+  const ESPStatus = () => {
+    if(displaySlide === 0){
+      setStatusESP(true)
+    }else{
+      setStatusESP(false)
+    }
+  }
+ 
+  const intervalId = setInterval(ESPStatus, 1000);
+
+  return () => clearInterval(intervalId);
+}, [displaySlide]); // Adding 'count' as a dependency
  
   return (
     <>
@@ -203,8 +223,9 @@ useEffect(() => {
             <div className="flex flex-col items-center">
               <div className="flex gap-2 items-center">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-  <path strokeLinecap="round" strokeLinejoin="round" d="M8.288 15.038a5.25 5.25 0 017.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 011.06 0z" />
+  <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 0 0 2.25-2.25V6.75a2.25 2.25 0 0 0-2.25-2.25H6.75A2.25 2.25 0 0 0 4.5 6.75v10.5a2.25 2.25 0 0 0 2.25 2.25Zm.75-12h9v9h-9v-9Z" />
 </svg>
+
 
                 <p className="font-semibold text-3xl">
                   {scenes[displaySlide].price.toLocaleString()}
@@ -214,34 +235,30 @@ useEffect(() => {
             </div>
             <div className="flex flex-col items-center">
               <div className="flex items-center gap-2">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-10 h-10"
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
+</svg>
 
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M21 10.5h.375c.621 0 1.125.504 1.125 1.125v2.25c0 .621-.504 1.125-1.125 1.125H21M4.5 10.5H18V15H4.5v-4.5zM3.75 18h15A2.25 2.25 0 0021 15.75v-6a2.25 2.25 0 00-2.25-2.25h-15A2.25 2.25 0 001.5 9.75v6A2.25 2.25 0 003.75 18z"
-                  />
-                </svg>
                 <p className="font-semibold text-3xl ">
                   {scenes[displaySlide].range}
                 </p>
-                <div>
+                <div >
                     {statusRelay ? (
-                      <Menu1/>
+                      <MenuPump/>
                    ) : (
                       <div></div>
                   )}
                 </div>
-                <div>
+                <div >
                     {statusPH ? (
-                      <Menu2/>
+                      <MenuPH/>
+                   ) : (
+                      <div></div>
+                  )}
+                </div>
+                <div >
+                    {statusESP ? (
+                      <MenuESP32/>
                    ) : (
                       <div></div>
                   )}
