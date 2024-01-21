@@ -27,7 +27,7 @@ export const Scene = ({ mainColor, path, ...props }) => {
   const ratioScale = Math.min(1.2, Math.max(0.5, window.innerWidth / 1920));
   return (
     <>
-      
+
       <group {...props} dispose={null}>
         <PerspectiveCamera makeDefault position={[3, 3, 8]} near={0.5} />
         <OrbitControls
@@ -39,8 +39,8 @@ export const Scene = ({ mainColor, path, ...props }) => {
           autoRotateSpeed={0.5}
         />
         <primitive object={scene} scale={ratioScale} />
-       
-    
+
+
         <Environment blur={0.8} background>
           <Sphere scale={15}>
             <meshBasicMaterial color={mainColor} side={THREE.BackSide} />

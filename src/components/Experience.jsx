@@ -14,7 +14,7 @@ import { slideAtom } from "./Overlay";
 import { Scene } from "./Scene";
 
 
-  
+
 
 
 
@@ -104,8 +104,8 @@ const CameraHandler = ({ slideDistance }) => {
 };
 
 export const Experience = () => {
-  
-  
+
+
   const viewport = useThree((state) => state.viewport);
   const { slideDistance } = useControls({
     slideDistance: {
@@ -116,7 +116,7 @@ export const Experience = () => {
   });
 
 
-   const scenes = [
+  const scenes = [
     {
       path: "models/esp32.glb",
       mainColor: "#f9c0ff",
@@ -131,7 +131,7 @@ export const Experience = () => {
       name: "pH",
       description: "ค่า pH ของน้ำ",
       price: "Value",
-      range: "pH", 
+      range: "pH",
     },
     {
       path: "models/pump.glb",
@@ -145,13 +145,13 @@ export const Experience = () => {
   ];
   return (
     <>
-      
-      
+
+
       <CameraHandler slideDistance={slideDistance} />
       {/* MAIN WORLD */}
 
 
- 
+
       {scenes.map((scene, index) => (
         <mesh
           key={index}
@@ -166,8 +166,8 @@ export const Experience = () => {
           </meshBasicMaterial>
         </mesh>
       ))}
-    </> 
+    </>
   );
- 
+
 };
 
