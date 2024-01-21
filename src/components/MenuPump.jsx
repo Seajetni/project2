@@ -140,7 +140,7 @@ const MenuPump = () => {
       </button>
 
       <div
-        className={`absolute   bottom-10  flex flex-col right-1/4 w-96 bg-white  rounded-3xl mt-16  ${isOpen ? 'block' : 'hidden'
+        className={`absolute   bottom-10  right-0 w-96 bg-white  rounded-3xl mt-16  ${isOpen ? 'block' : 'hidden'
           }`}
       >
 
