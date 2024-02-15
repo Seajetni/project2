@@ -42,7 +42,41 @@ export const Overlay = () => {
         const data = await res.json();
         const newPH = parseFloat(data).toFixed(2);
         setPH(newPH);
-
+        if(newPH > 7.5){
+          fetch(`https://sgp1.blynk.cloud/external/api/update?token=pwo5wVawia3Th0zu61Uw56n69RxUjUt9&v4=1`)
+          .then(response => {
+            // รอ 5 วินาทีก่อนทำการ fetch ครั้งต่อไป
+            setTimeout(() => {
+              fetch(`https://sgp1.blynk.cloud/external/api/update?token=pwo5wVawia3Th0zu61Uw56n69RxUjUt9&v4=0`)
+                .then(response => {
+                  console.log("more then")
+                })
+                .catch(error => {
+                  console.error('Error sending request:', error);
+                });
+            }, 4000); // รอ 5 วินาที (5000 มิลลิวินาที)
+          })
+          .catch(error => {
+            console.error('Error sending request:', error);
+          });
+        }else if(newPH < 5.5){
+          fetch(`https://sgp1.blynk.cloud/external/api/update?token=pwo5wVawia3Th0zu61Uw56n69RxUjUt9&v4=1`)
+          .then(response => {
+            console.log("low then")
+            setTimeout(() => {
+              fetch(`https://sgp1.blynk.cloud/external/api/update?token=pwo5wVawia3Th0zu61Uw56n69RxUjUt9&v4=0`)
+                .then(response => {
+                  // ทำสิ่งที่ต้องการเมื่อ fetch สำเร็จ
+                })
+                .catch(error => {
+                  console.error('Error sending request:', error);
+                });
+            }, 4000); // รอ 5 วินาที (5000 มิลลิวินาที)
+          })
+          .catch(error => {
+            console.error('Error sending request:', error);
+          });
+        }
       } catch (error) {
         console.error('Error fetching pH data:', error);
       }
